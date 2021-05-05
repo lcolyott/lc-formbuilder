@@ -5,7 +5,7 @@ import Forms from "./views/Forms";
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         width: "100vw",
-        height: "100vw",
+        height: "100vh",
         maxWidth: "100vw",
         maxHeight: "100vh",
     },
@@ -40,6 +40,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
             left: 0,
 
             overflow: "scroll",
+
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+            "&::-webkit-scrollbar": {
+                display: "none",
+            }
         }
     },
     sidebar: {
