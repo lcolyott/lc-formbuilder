@@ -1,12 +1,30 @@
+import { ThemeProvider, DefaultTheme, StylesProvider, createGenerateClassName } from '@material-ui/styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Forms from './views/Forms';
+
+const theme: DefaultTheme = {
+  palette: {
+    background: {
+      light: "#ffffff",
+      dark: "#1c1b22",
+    }
+  }
+};
+
+const generateClassName = createGenerateClassName({
+  productionPrefix: "LCFormBuilder",
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <StylesProvider generateClassName={generateClassName}>
+        <Forms />
+      </StylesProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
