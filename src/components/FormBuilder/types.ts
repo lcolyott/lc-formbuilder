@@ -1,8 +1,7 @@
-import { StyledComponentProps } from "@material-ui/styles";
+import { StyledComponentProps, StandardProps } from "@material-ui/core";
 import React from "react";
-import { StandardProps } from "../../types";
 
-export type FormBuilderClassKey = "root" | "builder" | "toolbox";
+export type FormBuilderClassKey = "root" | "layout" | "builder" | "toolbox";
 
 export interface FormBuilderProps extends StandardProps<{}, FormBuilderClassKey> { };
 

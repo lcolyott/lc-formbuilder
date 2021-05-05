@@ -13,7 +13,8 @@ Create extensible forms in browser.
     - react-dnd-touch-backend
 
 ### Styling
-    - @material-ui/styles
+    - @material-ui/core
 
 ### Utilites
     - clsx
+    - react-device-detect

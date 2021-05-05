@@ -1,18 +1,11 @@
-import { ThemeProvider, DefaultTheme, StylesProvider, createGenerateClassName } from '@material-ui/styles';
+import { ThemeProvider, Theme, StylesProvider, createGenerateClassName, createMuiTheme } from '@material-ui/core';
+import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import App from './app';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Forms from './views/Forms';
-
-const theme: DefaultTheme = {
-  palette: {
-    background: {
-      light: "#ffffff",
-      dark: "#1c1b22",
-    }
-  }
-};
 
 const generateClassName = createGenerateClassName({
   productionPrefix: "LCFormBuilder",
@@ -20,11 +13,13 @@ const generateClassName = createGenerateClassName({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <StylesProvider generateClassName={generateClassName}>
-        <Forms />
-      </StylesProvider>
-    </ThemeProvider>
+    <BrowserRouter basename={"LCFormBuilder"}>
+      <ThemeProvider theme={createMuiTheme()}>
+        <StylesProvider generateClassName={generateClassName}>
+          <App />
+        </StylesProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
