@@ -1,11 +1,22 @@
+import { Divider, Toolbar, withStyles } from "@material-ui/core";
 import React from "react";
+import { BuilderStyles } from "./styles";
+import { BuilderProps } from "./types";
 
-const Builder: React.FunctionComponent<any> = (props) => {
+const Builder: React.FunctionComponent<BuilderProps> = (props) => {
+    const { classes, ...rest } = props;
+
     return (
-        <div style={{ gridArea: "builder", border: "1px solid lightgray" }}>
+        <div className={classes?.root}>
+            <Toolbar className={classes?.header}>
+                Builder
+            </Toolbar>
+            <Divider variant={"middle"} />
+            <div className={classes?.content}>
 
+            </div>
         </div>
     );
 };
 
-export default Builder;
+export default withStyles(BuilderStyles)(Builder);
