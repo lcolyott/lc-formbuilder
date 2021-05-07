@@ -5,5 +5,6 @@ export type BuilderClassKey = "root" | "header" | "content";
 
 export interface BuilderProps extends StandardProps<{}, BuilderClassKey> {
     items?: ComponentItem[];
+    onMoveComponent?: (dragItem: ComponentItem, dropItem: ComponentItem) => void;
     onSelectComponent?: (item?: ComponentItem) => void;
 };

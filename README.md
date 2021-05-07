@@ -17,4 +17,5 @@ Create extensible forms in browser.
 
 ### Utilites
     - clsx
+    - immutability-helper
     - react-device-detect

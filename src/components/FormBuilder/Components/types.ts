@@ -4,8 +4,6 @@ import { CSSProperties } from "react";
 export type ComponentClassKey = "root" | "content" | "actions";
 
 export interface ComponentLayoutProps {
-    draggable?: boolean;
-    droppable?: boolean;
     fullWidth?: boolean;
 };
 
@@ -15,7 +13,10 @@ export interface ComponentItem {
     pIndex?: number;
     type?: string;
     name?: string;
+    draggable?: boolean;
+    droppable?: boolean;
     layoutProps?: ComponentLayoutProps;
+    accept?: string[];
 };
 
 export interface BaseComponentProps extends StandardProps<{}, ComponentClassKey> {
@@ -23,5 +24,6 @@ export interface BaseComponentProps extends StandardProps<{}, ComponentClassKey>
     item?: ComponentItem;
     index?: number;
     layoutProps?: ComponentLayoutProps;
-    onSelect?: (item?: ComponentItem) => void
+    onMove?: (dragItem: ComponentItem, dropItem: ComponentItem) => void;
+    onSelect?: (item?: ComponentItem) => void;
 };

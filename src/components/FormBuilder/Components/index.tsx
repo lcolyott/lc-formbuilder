@@ -14,7 +14,7 @@ export const RootComponent = (props: BaseComponentProps & { children?: React.Rea
 };
 
 export const BaseComponent = withStyles(BaseComponentStyles)((props: BaseComponentProps & { children?: React.ReactNode }) => {
-    const { children, classes, id, index, item, onSelect, ...rest } = props;
+    const { children, classes, id, index, item, onMove, onSelect, ...rest } = props;
     const ref = useRef<HTMLDivElement>(null);
 
     const [{ handlerId }, dropRef] = useDrop({
@@ -28,34 +28,21 @@ export const BaseComponent = withStyles(BaseComponentStyles)((props: BaseCompone
             console.log("hover");
 
             if (!ref.current) { return; }
+        },
+        drop(dragItem: ComponentItem, monitor: DropTargetMonitor) {
+            if (!ref.current) { return; }
+            if (!item) { return; }
+            
+            // Determine if this should go before or after the element it has been dropped on
 
-            const dragIndex = item.sIndex ?? 0;
-            const hoverIndex = index ?? 0;
-
-            if (dragIndex === hoverIndex) {
-                return;
-            }
-
-            const hoverBoundingRect = ref.current?.getBoundingClientRect();
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-            const clientOffset = monitor.getClientOffset();
-            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
-
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) { return; }
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) { return; }
-
-            // Move component
-            // Cases: Same parent, new parent
-
-            item.sIndex = hoverIndex;
+            // handle drop instead and perform logic in root component
+            onMove?.(dragItem, item);
         }
     });
 
     const [{ isDragging }, dragRef] = useDrag({
         type: "c",
-        item: () => {
-            return { id, index }
-        },
+        item,
         collect: (monitor) => ({
             isDragging: monitor.isDragging()
         })
@@ -67,6 +54,7 @@ export const BaseComponent = withStyles(BaseComponentStyles)((props: BaseCompone
     return (
         <div ref={ref} data-handler-id={handlerId} className={classes?.root}>
             <div className={classes?.content}>
+                {item?.name + " " + item?.index}
                 {children}
             </div>
             <div className={classes?.actions}>

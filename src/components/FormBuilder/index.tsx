@@ -11,6 +11,7 @@ import Toolbox from "./Toolbox";
 import ComponentEditor from "./ComponentEditor";
 import { ComponentItem } from "./Components/types";
 import { BaseComponent } from "./Components";
+import update from "immutability-helper";
 
 class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState> {
     constructor(props: FormBuilderProps) {
@@ -18,9 +19,9 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
         this.state = {
             selectedItem: undefined,
             items: [
-                { index: 0, sIndex: 0, pIndex: undefined, type: "root", name: "root" },
-                { index: 1, sIndex: 0, pIndex: 0, type: "c", name: "component", layoutProps: { fullWidth: true } },
-                { index: 2, sIndex: 1, pIndex: 0, type: "c", name: "component" },
+                { index: 0, sIndex: undefined, pIndex: undefined, type: "root", name: "root", accept: ["c"] },
+                { index: 1, sIndex: 0, pIndex: 0, type: "c", name: "component", layoutProps: { fullWidth: false } },
+                { index: 2, sIndex: 1, pIndex: 0, type: "c", name: "component", layoutProps: { fullWidth: true } },
             ]
         };
 
@@ -47,7 +48,27 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
 
     removeItem() { };
 
-    moveItem() { };
+    moveItem(dragItem: ComponentItem, dropItem: ComponentItem) {
+        console.log(dragItem, dropItem);
+
+        // TODO: Check if dropItem.index is already the parent of dragItem.index => do nothing?
+        // TODO: Check if dropItem accepts dragItem.type => Make dragItem a child of dropItem
+        // TODO: If not accept, check if parent accepts => Make dragItem a child of dropItem's parent / reorder
+
+        if (dropItem.index === dragItem.pIndex) { return; }
+
+        if (dropItem.accept?.includes(dragItem.type as string)) {
+            dragItem.pIndex = dropItem.index;
+        }
+        else if (this.state.items?.[dropItem.pIndex as number].accept?.includes(dragItem.type as string)) {
+            dragItem.pIndex = this.state.items?.[dropItem.pIndex as number].index;
+            
+            // Not quite right
+            dragItem.sIndex = dropItem.sIndex as number + 1;
+        }
+
+        this.forceUpdate();
+    };
 
     removeItemsByType() { };
 
@@ -82,7 +103,7 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
             <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
                 <div className={classes?.layout}>
                     <ComponentEditor item={this.state.selectedItem} />
-                    <Builder items={this.state.items} onSelectComponent={this.handleSelectComponent} />
+                    <Builder items={this.state.items} onMoveComponent={this.moveItem} onSelectComponent={this.handleSelectComponent} />
                     <Toolbox />
                     <div className={classes?.actions}>
                         <Button variant={"contained"} onClick={this.save}>Save</Button>

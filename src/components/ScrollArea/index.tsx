@@ -24,20 +24,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
             display: "none",
         }
     },
-    spacer: {
-        height: "2rem",
-    },
-    feather: {
-        position: "absolute",
-        right: 0,
-        bottom: 0,
-        left: 0,
-        height: "4rem",
-
-        background: "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)",
-
-        pointerEvents: "none",
-    }
 }), { name: "ScrollArea" });
 
 export default function ScrollArea(props: { children?: React.ReactNode }) {
@@ -47,9 +33,7 @@ export default function ScrollArea(props: { children?: React.ReactNode }) {
         <div className={classes.root}>
             <div className={classes.scrollContent}>
                 {props.children}
-                <div className={classes.spacer} />
             </div>
-            <div className={classes.feather} />
         </div>
     );
 };

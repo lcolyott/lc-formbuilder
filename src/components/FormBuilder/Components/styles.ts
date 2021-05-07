@@ -18,8 +18,6 @@ export const BaseComponentStyles = (theme: Theme) => createStyles<ComponentClass
             }
         },
 
-        cursor: props => props.layoutProps?.draggable ? "grab" : "pointer",
-
         transition: "background-color .3s",
     },
     content: {

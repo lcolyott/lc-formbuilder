@@ -8,7 +8,7 @@ import { BuilderProps } from "./types";
 import { ComponentMap } from "../Components/data";
 
 const Builder: React.FunctionComponent<BuilderProps> = (props) => {
-    const { classes, items, onSelectComponent, ...rest } = props;
+    const { classes, items, onMoveComponent, onSelectComponent, ...rest } = props;
 
     const renderComponents = (): JSX.Element => {
         function renderItem(item?: ComponentItem) {
@@ -17,8 +17,8 @@ const Builder: React.FunctionComponent<BuilderProps> = (props) => {
             let Component = ComponentMap.get(item.type ?? "");
 
             return (
-                <Component id={item.index} index={item.index} item={item} layoutProps={item.layoutProps} onSelect={onSelectComponent}>
-                    { items?.filter(child => child.pIndex === item.index).map((value, index) => renderItem(value))}
+                <Component id={item.index} index={item.index} item={item} layoutProps={item.layoutProps} onMove={onMoveComponent} onSelect={onSelectComponent}>
+                    { items?.filter(child => child.pIndex === item.index).sort((a, b) => (a.sIndex as number) - (b.sIndex as number)).map((value, index) => renderItem(value))}
                 </Component>
             );
         };
