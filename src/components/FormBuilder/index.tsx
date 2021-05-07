@@ -8,6 +8,7 @@ import { FormBuilderProps, FormBuilderState } from "./types";
 import { isMobile } from "react-device-detect";
 import Builder from "./Builder";
 import Toolbox from "./Toolbox";
+import ComponentEditor from "./ComponentEditor";
 
 class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState> {
     constructor(props: FormBuilderProps) {
@@ -16,7 +17,7 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
 
         };
 
-        this.renderItem = this.renderItem.bind(this);
+        this.renderForm = this.renderForm.bind(this);
 
         this.addItem = this.addItem.bind(this);
         this.removeItem = this.removeItem.bind(this);
@@ -36,13 +37,14 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
     componentWillUnmount() { };
     //#endregion
 
-    //#region Methods
-    renderItem() { };
-
     addItem() { };
+
     removeItem() { };
+
     moveItem() { };
+
     removeItemsByType() { };
+
     removeAllItems() { };
 
     clear() {
@@ -52,30 +54,42 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
     save() {
         console.log("Save");
     };
-    //#endregion
 
     //#region Event Handlers
-    handleDrop() { };
+    handleEditComponent(item: unknown) {
+        console.log("Editing Component");
+    };
+
+    handleDrop() {
+
+    };
     //#endregion
+
+    //#region Render Methods
+    /**
+     * Render the form by passing the root node
+     * Can *technically* begin rendering at any sub node of the form
+     */
+    renderForm(root: unknown) { };
 
     render() {
         const { children, classes, className, style, ...rest } = this.props;
 
         return (
             <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
-                <Container className={classes?.root}>
-                    <div className={classes?.layout}>
-                        <Builder />
-                        <Toolbox />
-                        <div className={classes?.actions}>
-                            <Button variant={"contained"} onClick={this.save}>Save</Button>
-                            <Button variant={"contained"} onClick={this.clear}>Clear</Button>
-                        </div>
+                <div className={classes?.layout}>
+                    <ComponentEditor />
+                    <Builder onEditComponent={this.handleEditComponent} />
+                    <Toolbox />
+                    <div className={classes?.actions}>
+                        <Button variant={"contained"} onClick={this.save}>Save</Button>
+                        <Button variant={"contained"} onClick={this.clear}>Clear</Button>
                     </div>
-                </Container>
+                </div>
             </DndProvider>
         );
     }
+    //#endregion
 };
 
 export default withStyles(FormBuilderStyles)(FormBuilder);

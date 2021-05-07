@@ -47,7 +47,9 @@ const Toolbox: React.FunctionComponent<ToolboxProps> = (props) => {
     return (
         <div className={classes?.root}>
             <Toolbar className={classes?.header}>
-                Toolbox
+                <Typography variant={"h5"} color={"textSecondary"}>
+                    Toolbox
+                </Typography>
             </Toolbar>
             <Divider variant={"middle"} />
             <div className={classes?.container}>

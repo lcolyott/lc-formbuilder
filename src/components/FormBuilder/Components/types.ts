@@ -11,4 +11,5 @@ export interface ComponentLayoutProps {
 
 export interface BaseComponentProps extends StandardProps<{}, ComponentClassKey> {
     layoutProps?: ComponentLayoutProps;
+    onEdit?: (item: unknown) => void
 };

@@ -14,10 +14,10 @@ export const FormBuilderStyles = (theme: Theme) => createStyles<FormBuilderClass
     layout: {
         display: "grid",
         gridTemplateRows: "auto 5rem",
-        gridTemplateColumns: "auto 17.5rem",
+        gridTemplateColumns: "17.5rem auto 17.5rem",
         gridTemplateAreas: `
-        "builder toolbox"
-        "actions actions"
+        "editor builder toolbox"
+        "actions actions actions"
         `,
         gap: "1rem",
 

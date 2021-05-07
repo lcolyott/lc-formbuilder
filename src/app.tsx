@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     layout: {
         display: "grid",
         gridTemplateRows: "4rem auto",
-        gridTemplateColumns: "17.5rem auto",
+        gridTemplateColumns: "auto",
         gridTemplateAreas: `
-        "header header"
-        "sidebar content"
+        "header"
+        "content"
         `,
 
         width: "100%",
@@ -62,9 +62,6 @@ export default function App() {
         <div className={classes.root}>
             <div className={classes.layout}>
                 <div className={classes.appHeader}>
-
-                </div>
-                <div className={classes.sidebar}>
 
                 </div>
                 <div className={classes.content}>
