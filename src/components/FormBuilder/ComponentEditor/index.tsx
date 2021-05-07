@@ -17,7 +17,7 @@ const ComponentEditor = withStyles(ComponentEditorStyles)((props: React.PropsWit
             <div className={classes?.content}>
                 {item !== undefined &&
                     <div>
-                        Editing: {(item as { name: string }).name}
+                        Editing: {item.name}
                     </div>
                 }
             </div>

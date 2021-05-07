@@ -19,7 +19,7 @@ export const BuilderStyles = (theme: Theme) => createStyles<BuilderClassKey, {}>
 
         gap: ".25rem",
 
-        padding: "1rem",
+        padding: "1.25rem",
 
         width: "100%",
         minHeight: "100%",

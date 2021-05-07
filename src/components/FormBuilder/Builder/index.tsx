@@ -2,11 +2,29 @@ import { ClickAwayListener, Divider, Toolbar, Typography, withStyles } from "@ma
 import React from "react";
 import ScrollArea from "../../ScrollArea";
 import { BaseComponent } from "../Components";
+import { ComponentItem } from "../Components/types";
 import { BuilderStyles } from "./styles";
 import { BuilderProps } from "./types";
+import { ComponentMap } from "../Components/data";
 
 const Builder: React.FunctionComponent<BuilderProps> = (props) => {
-    const { classes, onSelectComponent, ...rest } = props;
+    const { classes, items, onSelectComponent, ...rest } = props;
+
+    const renderComponents = (): JSX.Element => {
+        function renderItem(item?: ComponentItem) {
+            if (!item) { return; }
+
+            let Component = ComponentMap.get(item.type ?? "");
+
+            return (
+                <Component id={item.index} index={item.index} item={item} layoutProps={item.layoutProps} onSelect={onSelectComponent}>
+                    { items?.filter(child => child.pIndex === item.index).map((value, index) => renderItem(value))}
+                </Component>
+            );
+        };
+
+        return renderItem(items?.[0]) ?? <React.Fragment />;
+    };
 
     return (
         <div className={classes?.root}>
@@ -19,11 +37,7 @@ const Builder: React.FunctionComponent<BuilderProps> = (props) => {
             <ScrollArea>
                 <ClickAwayListener onClickAway={() => onSelectComponent?.(undefined)}>
                     <div className={classes?.content}>
-                        {Array(20).fill(0).map((value, index) => (
-                            <BaseComponent key={index} item={{ name: `item ${index}` }} layoutProps={{ draggable: index % 2 === 0 }} onSelect={onSelectComponent}>
-                                {index % 2 === 0 ? "Draggable" : "Not Draggable"}
-                            </BaseComponent>
-                        ))}
+                        {renderComponents()}
                     </div>
                 </ClickAwayListener>
             </ScrollArea>

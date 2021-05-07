@@ -9,8 +9,19 @@ export interface ComponentLayoutProps {
     fullWidth?: boolean;
 };
 
-export interface BaseComponentProps extends StandardProps<{}, ComponentClassKey> {
-    item?: unknown;
+export interface ComponentItem {
+    index?: number;
+    sIndex?: number;
+    pIndex?: number;
+    type?: string;
+    name?: string;
     layoutProps?: ComponentLayoutProps;
-    onSelect?: (item: unknown) => void
+};
+
+export interface BaseComponentProps extends StandardProps<{}, ComponentClassKey> {
+    id?: any;
+    item?: ComponentItem;
+    index?: number;
+    layoutProps?: ComponentLayoutProps;
+    onSelect?: (item?: ComponentItem) => void
 };

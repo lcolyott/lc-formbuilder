@@ -9,15 +9,20 @@ import { isMobile } from "react-device-detect";
 import Builder from "./Builder";
 import Toolbox from "./Toolbox";
 import ComponentEditor from "./ComponentEditor";
+import { ComponentItem } from "./Components/types";
+import { BaseComponent } from "./Components";
 
 class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState> {
     constructor(props: FormBuilderProps) {
         super(props);
         this.state = {
-
+            selectedItem: undefined,
+            items: [
+                { index: 0, sIndex: 0, pIndex: undefined, type: "root", name: "root" },
+                { index: 1, sIndex: 0, pIndex: 0, type: "c", name: "component", layoutProps: { fullWidth: true } },
+                { index: 2, sIndex: 1, pIndex: 0, type: "c", name: "component" },
+            ]
         };
-
-        this.renderForm = this.renderForm.bind(this);
 
         this.addItem = this.addItem.bind(this);
         this.removeItem = this.removeItem.bind(this);
@@ -57,8 +62,8 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
     };
 
     //#region Event Handlers
-    handleSelectComponent(item: unknown) {
-        console.log("Editing Component");
+    handleSelectComponent(item?: ComponentItem) {
+        console.log("Editing Component", item);
         this.setState({
             selectedItem: item
         });
@@ -70,12 +75,6 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
     //#endregion
 
     //#region Render Methods
-    /**
-     * Render the form by passing the root node
-     * Can *technically* begin rendering at any sub node of the form
-     */
-    renderForm(root: unknown) { };
-
     render() {
         const { children, classes, className, style, ...rest } = this.props;
 
@@ -83,7 +82,7 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
             <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
                 <div className={classes?.layout}>
                     <ComponentEditor item={this.state.selectedItem} />
-                    <Builder onSelectComponent={this.handleSelectComponent} />
+                    <Builder items={this.state.items} onSelectComponent={this.handleSelectComponent} />
                     <Toolbox />
                     <div className={classes?.actions}>
                         <Button variant={"contained"} onClick={this.save}>Save</Button>
