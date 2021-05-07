@@ -10,6 +10,7 @@ export interface ComponentLayoutProps {
 };
 
 export interface BaseComponentProps extends StandardProps<{}, ComponentClassKey> {
+    item?: unknown;
     layoutProps?: ComponentLayoutProps;
-    onEdit?: (item: unknown) => void
+    onSelect?: (item: unknown) => void
 };

@@ -1,4 +1,4 @@
-import { Divider, Toolbar, Typography, withStyles } from "@material-ui/core";
+import { ClickAwayListener, Divider, Toolbar, Typography, withStyles } from "@material-ui/core";
 import React from "react";
 import ScrollArea from "../../ScrollArea";
 import { BaseComponent } from "../Components";
@@ -6,7 +6,7 @@ import { BuilderStyles } from "./styles";
 import { BuilderProps } from "./types";
 
 const Builder: React.FunctionComponent<BuilderProps> = (props) => {
-    const { classes, onEditComponent, ...rest } = props;
+    const { classes, onSelectComponent, ...rest } = props;
 
     return (
         <div className={classes?.root}>
@@ -17,13 +17,15 @@ const Builder: React.FunctionComponent<BuilderProps> = (props) => {
             </Toolbar>
             <Divider variant={"middle"} />
             <ScrollArea>
-                <div className={classes?.content}>
-                    {Array(20).fill(0).map((value, index) => (
-                        <BaseComponent key={index} layoutProps={{ draggable: index % 2 === 0 }} onEdit={onEditComponent}>
-                            {index % 2 === 0 ? "Draggable" : "Not Draggable"}
-                        </BaseComponent>
-                    ))}
-                </div>
+                <ClickAwayListener onClickAway={() => onSelectComponent?.(undefined)}>
+                    <div className={classes?.content}>
+                        {Array(20).fill(0).map((value, index) => (
+                            <BaseComponent key={index} item={{ name: `item ${index}` }} layoutProps={{ draggable: index % 2 === 0 }} onSelect={onSelectComponent}>
+                                {index % 2 === 0 ? "Draggable" : "Not Draggable"}
+                            </BaseComponent>
+                        ))}
+                    </div>
+                </ClickAwayListener>
             </ScrollArea>
         </div>
     );

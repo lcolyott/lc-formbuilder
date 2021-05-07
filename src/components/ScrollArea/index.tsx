@@ -34,7 +34,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         left: 0,
         height: "4rem",
 
-        background: "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)"
+        background: "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)",
+
+        pointerEvents: "none",
     }
 }), { name: "ScrollArea" });
 

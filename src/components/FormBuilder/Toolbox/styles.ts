@@ -7,7 +7,7 @@ export const ToolboxItemStyles = (theme: Theme) => createStyles<ToolboxItemClass
         position: "relative",
 
         display: "flex",
-        flexBasis: "calc(33.333% - .5rem)",
+        flexBasis: "calc(25% - .5rem)",
 
         boxSizing: "border-box",
 

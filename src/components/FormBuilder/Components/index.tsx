@@ -5,7 +5,7 @@ import { BaseComponentStyles } from "./styles";
 import { BaseComponentProps } from "./types";
 
 export const BaseComponent = withStyles(BaseComponentStyles)((props: BaseComponentProps & { children?: React.ReactNode }) => {
-    const { children, classes, onEdit, ...rest } = props;
+    const { children, classes, item, onSelect, ...rest } = props;
 
     return (
         <div className={classes?.root}>
@@ -14,7 +14,7 @@ export const BaseComponent = withStyles(BaseComponentStyles)((props: BaseCompone
             </div>
             <div className={classes?.actions}>
                 <Tooltip title={"Edit"}>
-                    <IconButton size={"small"} onClick={onEdit}>
+                    <IconButton size={"small"} onClick={() => onSelect?.(item)}>
                         <Edit />
                     </IconButton>
                 </Tooltip>

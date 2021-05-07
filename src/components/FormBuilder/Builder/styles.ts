@@ -17,6 +17,16 @@ export const BuilderStyles = (theme: Theme) => createStyles<BuilderClassKey, {}>
         display: "flex",
         flexDirection: "column",
 
+        gap: ".25rem",
+
         padding: "1rem",
+
+        width: "100%",
+        minHeight: "100%",
+
+        boxSizing: "border-box",
+
+        outline: "rgb(175,175,175) dashed 2px",
+        outlineOffset: "-1rem",
     }
 });

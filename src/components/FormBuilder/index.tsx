@@ -28,6 +28,7 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
         this.clear = this.clear.bind(this);
         this.save = this.save.bind(this);
 
+        this.handleSelectComponent = this.handleSelectComponent.bind(this);
         this.handleDrop = this.handleDrop.bind(this);
     };
 
@@ -56,8 +57,11 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
     };
 
     //#region Event Handlers
-    handleEditComponent(item: unknown) {
+    handleSelectComponent(item: unknown) {
         console.log("Editing Component");
+        this.setState({
+            selectedItem: item
+        });
     };
 
     handleDrop() {
@@ -78,8 +82,8 @@ class FormBuilder extends React.PureComponent<FormBuilderProps, FormBuilderState
         return (
             <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
                 <div className={classes?.layout}>
-                    <ComponentEditor />
-                    <Builder onEditComponent={this.handleEditComponent} />
+                    <ComponentEditor item={this.state.selectedItem} />
+                    <Builder onSelectComponent={this.handleSelectComponent} />
                     <Toolbox />
                     <div className={classes?.actions}>
                         <Button variant={"contained"} onClick={this.save}>Save</Button>

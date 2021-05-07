@@ -7,7 +7,8 @@ export const BaseComponentStyles = (theme: Theme) => createStyles<ComponentClass
 
         flexBasis: props => props.layoutProps?.fullWidth ? "100%" : "100px",
 
-        border: "1px dashed grey",
+        border: "1px solid lightgrey",
+        backgroundColor: "rgba(0,255,200,.1)",
 
         "&:hover": {
             backgroundColor: "rgba(100, 100, 100, .1)",

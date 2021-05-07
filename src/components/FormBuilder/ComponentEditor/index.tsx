@@ -4,7 +4,7 @@ import { ComponentEditorStyles } from "./styles";
 import { ComponentEditorProps } from "./types";
 
 const ComponentEditor = withStyles(ComponentEditorStyles)((props: React.PropsWithChildren<ComponentEditorProps>) => {
-    const { classes, ...rest } = props;
+    const { classes, item, ...rest } = props;
 
     return (
         <div className={classes?.root}>
@@ -15,7 +15,11 @@ const ComponentEditor = withStyles(ComponentEditorStyles)((props: React.PropsWit
             </Toolbar>
             <Divider variant={"middle"} />
             <div className={classes?.content}>
-
+                {item !== undefined &&
+                    <div>
+                        Editing: {(item as { name: string }).name}
+                    </div>
+                }
             </div>
         </div>
     );
